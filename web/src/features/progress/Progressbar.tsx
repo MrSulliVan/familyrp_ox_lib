@@ -4,14 +4,15 @@ import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { fetchNui } from '../../utils/fetchNui';
 import ScaleFade from '../../transitions/ScaleFade';
 import type { ProgressbarProps } from '../../typings';
+import { motion } from 'framer-motion';
 
 const useStyles = createStyles((theme) => ({
   container: {
-    width: 350,
-    height: 45,
-    borderRadius: theme.radius.sm,
+    width: 300,
+    height: 20,
+    borderRadius: 10,
     backgroundColor: theme.colors.dark[5],
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   wrapper: {
     width: '100%',
@@ -24,25 +25,28 @@ const useStyles = createStyles((theme) => ({
   },
   bar: {
     height: '100%',
-    backgroundColor: theme.colors[theme.primaryColor][theme.fn.primaryShade()],
   },
   labelWrapper: {
     position: 'absolute',
     display: 'flex',
-    width: 350,
-    height: 45,
+    width: 300,
+    height: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
-    maxWidth: 350,
+    maxWidth: 300,
     padding: 8,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    fontSize: 20,
-    color: theme.colors.gray[3],
-    textShadow: theme.shadows.sm,
+    fontSize: 14,
+    color: 'white',
+    textShadow: '1px 1px 1px black',
+    zIndex: 2,
+  },
+  motionBar: {
+    height: '100%',
   },
 }));
 
@@ -51,6 +55,23 @@ const Progressbar: React.FC = () => {
   const [visible, setVisible] = React.useState(false);
   const [label, setLabel] = React.useState('');
   const [duration, setDuration] = React.useState(0);
+
+  const transition = {
+    duration: duration/1000,
+    ease: "linear"
+  };
+
+  const variants = {
+    enter: {
+      x: -300,
+      backgroundColor: "rgb(255, 0, 0)"
+    },
+    animate: {
+      x: [-300, 0],
+      transition,
+      backgroundColor: "rgb(0, 255, 0)",
+    }
+  };
 
   useNuiEvent('progressCancel', () => setVisible(false));
 
@@ -65,18 +86,17 @@ const Progressbar: React.FC = () => {
       <Box className={classes.wrapper}>
         <ScaleFade visible={visible} onExitComplete={() => fetchNui('progressComplete')}>
           <Box className={classes.container}>
-            <Box
-              className={classes.bar}
-              onAnimationEnd={() => setVisible(false)}
-              sx={{
-                animation: 'progress-bar linear',
-                animationDuration: `${duration}ms`,
-              }}
-            >
-              <Box className={classes.labelWrapper}>
-                <Text className={classes.label}>{label}</Text>
-              </Box>
-            </Box>
+          <Box className={classes.labelWrapper}>
+            <Text className={classes.label}>{label}</Text>
+          </Box>
+            <motion.div
+            variants={variants}
+            initial="enter"
+            exit="enter"
+            animate={"animate"}
+            onAnimationComplete={() => setVisible(false)}
+            className={classes.motionBar}>
+            </motion.div>
           </Box>
         </ScaleFade>
       </Box>
