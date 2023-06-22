@@ -23,21 +23,26 @@ const useStyles = createStyles((theme) => ({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginLeft: 3,
+    marginBottom: 5,
     gap: 6,
   },
   titleContainer: {
-    borderRadius: 4,
+    borderRadius: 10,
     flex: '1 85%',
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: "#000000de",
   },
   titleText: {
     color: theme.colors.dark[0],
+    fontFamily: 'Cairo, sans-serif',
+    fontSize: 18,
+    fontWeight: 700,
     padding: 6,
+    textTransform: 'capitalize',
     textAlign: 'center',
   },
   buttonsContainer: {
-    height: 560,
+    height: 580,
     overflowY: 'scroll',
   },
   buttonsFlexWrapper: {

@@ -21,22 +21,40 @@ const useStyles = createStyles((theme, params: { disabled?: boolean }) => ({
   label: {
     width: '100%',
     color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[0],
+    fontSize: 16,
+    fontFamily: 'Cairo, sans-serif',
     whiteSpace: 'pre-wrap',
   },
   button: {
     height: 'fit-content',
     width: '100%',
     padding: 10,
+    borderRadius: 10,
+    marginBottom: 0,
+    backgroundColor: "#000000d1",
+    transition: 'all 0.2s ease',
+    "&:hover": {
+      backgroundColor: "#000",
+      borderLeft: "10px solid #228be6",
+    },
+    '&:disabled': {
+      backgroundColor: "#000",
+    }
   },
   iconImage: {
-    maxWidth: '25px',
+    maxWidth: '37px',
   },
   description: {
     color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[2],
     fontSize: 12,
+    fontWeight: 700,
+    fontFamily: 'Cairo, sans-serif',
+    marginLeft: 5,
   },
   dropdown: {
-    padding: 10,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: "#000000d1",
     color: theme.colors.dark[0],
     fontSize: 14,
     maxWidth: 256,
@@ -52,13 +70,18 @@ const useStyles = createStyles((theme, params: { disabled?: boolean }) => ({
     flexWrap: 'nowrap',
   },
   buttonIconContainer: {
-    width: 25,
-    height: 25,
+    width: 37,
+    height: 37,
+    lineHeight: 37,
     justifyContent: 'center',
     alignItems: 'center',
+    border :"1px solid #757575",
+    borderRadius: 5,
   },
   buttonTitleText: {
+    marginLeft: 5,
     overflowWrap: 'break-word',
+    fontFamily: 'Cairo, sans-serif',
   },
   buttonArrowContainer: {
     justifyContent: 'center',
@@ -117,7 +140,9 @@ const ContextButton: React.FC<{
                   </Text>
                 )}
                 {button.progress !== undefined && (
-                  <Progress value={button.progress} size="sm" color={button.colorScheme || 'dark.3'} />
+     
+                    <Progress value={button.progress} size="sm" color={button.colorScheme || 'dark.3'} />
+
                 )}
               </Stack>
               {(button.menu || button.arrow) && button.arrow !== false && (

@@ -11,13 +11,18 @@ interface Props {
 
 const useStyles = createStyles((theme, params: { canClose?: boolean }) => ({
   button: {
-    borderRadius: 4,
+    borderRadius: 10,
+    backgroundColor: "#000000de",
     flex: '1 15%',
     alignSelf: 'stretch',
     height: 'auto',
     textAlign: 'center',
     justifyContent: 'center',
     padding: 2,
+    transition: 'all 0.2s ease',
+    "&:hover": {
+      backgroundColor: "#000",
+    },
   },
   root: {
     border: 'none',
